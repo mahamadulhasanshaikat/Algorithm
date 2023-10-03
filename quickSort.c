@@ -1,40 +1,77 @@
+
 #include <stdio.h>
 
-void quickSort(int array[], int low, int high) {
-    int pivot, i, j, temp;
-    if (low < high) {
-        pivot = low;
-        i = low;
-        j = high;
-        while (i < j) {
-            while (array[i] <= array[pivot] && i <= high) {
-                i++;
-            }
-            while (array[j] > array[pivot] && j >= low) {
-                j--;
-            }
-            if (i < j) {
-                temp = array[i];
-                array[i] = array[j];
-                array[j] = temp;
-            }
-        }
-        temp = array[j];
-        array[j] = array[pivot];
-        array[pivot] = temp;
-        quickSort(array, low, j - 1);
-        quickSort(array, j + 1, high);
+int patition(int arr[], int low, int high){
+    
+    int pivot, temp, i , j;
+    
+    
+    
+    pivot = arr[low];
+    i = low + 1;
+    j = high;
+    
+    
+    // i, j swap
+   do{
+       
+        while( arr[i] <= pivot){
+        i++;
     }
+    
+    while( arr[j] > pivot){
+        j--;
+        
+    }
+    
+    // swap
+    if(i < j){
+        temp = arr[i];
+        arr[i] = arr[j];
+        arr[j] = temp;
+    }
+    
+       
+   } while(i < j);
+   
+   
+   // after interchange to swap for pivot
+   temp = arr[low];
+   arr[low] = arr[j];
+   arr[j] = temp;
+   
+   return j;
+    
+    
 }
 
-int main() {
-    int array[] = {7, 12, 1, -2, 0, 15, 4, 11, 9};
-    int n = sizeof(array)/sizeof(array[0]);
-    int i;
-    quickSort(array, 0, n-1);
-    printf("Sorted array: \n");
-    for (i=0; i < n; i++) {
-        printf("%d ", array[i]);
+
+void quickSort(int arr[], int low, int high){
+    
+    int patitionIndex;
+    
+    if( low < high ){
+       
+       patitionIndex = patition(arr, low, high);
+       quickSort(arr, low, patitionIndex -1);
+       quickSort(arr, patitionIndex +1, high);
+       
     }
+    
+}
+
+
+int main(){
+
+ int arr[] = { 222, 21, 1, 2, 111, 999, 0, 5, 8};
+ int n = 9;
+ 
+ quickSort(arr, 0, n-1 );
+
+for(int i = 0; i < n; i ++){
+    printf("%d\t", arr[i] );
+}
     return 0;
 }
+
+
