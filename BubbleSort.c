@@ -1,11 +1,15 @@
 
 #include <stdio.h>
 
-int bubbleSort(int arr[], int size){
+void bubbleSort(int arr[], int size){
     
+    int isSorted = 0;
     int swap;
     
     for(int i = 0; i < size - 1; i++){
+        
+        printf("\n\nNumber of passes element %d\n", i+1);
+        isSorted = 1;
         
         for(int j = 0; j < size - 1 - i; j++){
             
@@ -15,9 +19,16 @@ int bubbleSort(int arr[], int size){
             arr[j] = arr[j+1];
             arr[j+1] = swap; 
             
+            isSorted = 0;
+            
             }
             
         }
+        
+        if(isSorted){
+            return;
+        }
+        
         
     }
     
@@ -43,13 +54,15 @@ void printArr(int arr[], int size){
 
 int main()
 {
-    int arr[100];
-    int size = 5;
+    int size ;
+    printf("Enter the array size: ");
+    scanf("%d", &size);
     
+    int arr[size];
     printf("Input Element: ");
     inputArr(arr,size);
     
-    printf("The Array Before Sorted\n");
+    printf("\nThe Array Before Sorted\n");
     printArr(arr,size);
     
     bubbleSort(arr,size);
